@@ -518,6 +518,7 @@ def on_message(ws, message):
     
         # Update all trading values
         initialize_all(current_price=current_price)
+        check_order_status()
         
         if SMA / current_price >= BB * 3 + 1 and current_price <= SELL_AVARAGE and BASE_ASSET >= MIN_TRADE_AMOUNT:
             print(f"Buying dip every {(round(1440 * MIN_TRADE_AMOUNT / BASE_ASSET))} minutes - T-Minus: {(round(1440 * MIN_TRADE_AMOUNT / BASE_ASSET)) - TRADE_COUNTER % (round(1440 * MIN_TRADE_AMOUNT / BASE_ASSET)) - 1} minutes")
@@ -583,8 +584,6 @@ def on_message(ws, message):
             grid = False
             sell_high(SYMBOL, quantity, sell_price, grid)
         
-
-        check_order_status()
         
         #time.sleep(3)
         t = time.gmtime()
